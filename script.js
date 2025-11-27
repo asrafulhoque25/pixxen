@@ -48,6 +48,7 @@
         initSmoothScroll();
         initPixelReveal();
         initConfidenceScrollAnimation();
+        tabinitFeaturedWork(); 
         
         console.log('✅ All animations initialized successfully');
     }
@@ -2246,6 +2247,194 @@ const brandIcon1 = document.getElementById('brandIcon1');
     });
 
 
+
+
+
+
+    // case study tab 
+
+       document.addEventListener('DOMContentLoaded', () => {
+            const tabButtons = document.querySelectorAll('.tab-button');
+            const tabPanels = document.querySelectorAll('.tab-content-panel');
+            const tabsContainer = document.querySelector('.tabs-container');
+            let isDragging = false;
+            let startX;
+            let scrollLeft;
+            
+            // --- 1. Tab Switching Logic ---
+            
+            // Function to handle the actual tab switch
+            const switchTab = (targetId) => {
+                // Deactivate all buttons and panels
+                tabButtons.forEach(btn => btn.classList.remove('active'));
+                tabPanels.forEach(panel => panel.classList.remove('active'));
+
+                // Activate the selected button
+                const newActiveButton = document.querySelector(`.tab-button[data-target="${targetId}"]`);
+                if (newActiveButton) {
+                    newActiveButton.classList.add('active');
+                }
+
+                // Activate the corresponding panel
+                const newActivePanel = document.getElementById(targetId);
+                if (newActivePanel) {
+                    newActivePanel.classList.add('active');
+                }
+            };
+
+            // Add click listeners to all tab buttons
+            tabButtons.forEach(button => {
+                button.addEventListener('click', (event) => {
+                    // Prevent tab switching if a dragging motion was detected
+                    // A small tolerance (e.g., 5 pixels) is usually required to distinguish click from drag
+                    if (tabsContainer.dataset.moved === 'true') {
+                        // Reset the moved flag after processing the drag
+                        tabsContainer.dataset.moved = 'false'; 
+                        return;
+                    }
+                    
+                    const targetId = event.currentTarget.getAttribute('data-target');
+                    switchTab(targetId);
+                });
+            });
+
+
+            // --- 2. Horizontal Drag-to-Scroll Logic ---
+
+            // Mouse Down: Start the dragging process
+            tabsContainer.addEventListener('mousedown', (e) => {
+                isDragging = true;
+                tabsContainer.classList.add('active:cursor-grabbing');
+                // Capture the starting mouse X position
+                startX = e.pageX - tabsContainer.offsetLeft;
+                // Capture the current scroll position
+                scrollLeft = tabsContainer.scrollLeft;
+                // Initialize the moved flag
+                tabsContainer.dataset.moved = 'false';
+            });
+
+            // Mouse Leave/Up: End the dragging process
+            const stopDragging = () => {
+                if (!isDragging) return;
+                isDragging = false;
+                tabsContainer.classList.remove('active:cursor-grabbing');
+            };
+            
+            tabsContainer.addEventListener('mouseup', stopDragging);
+            tabsContainer.addEventListener('mouseleave', stopDragging);
+
+            // Mouse Move: Calculate and apply the scroll
+            tabsContainer.addEventListener('mousemove', (e) => {
+                if (!isDragging) return;
+                e.preventDefault();
+                
+                // Calculate how far the mouse has moved
+                const x = e.pageX - tabsContainer.offsetLeft;
+                const walk = (x - startX) * 1.5; // Multiplier for faster scrolling (adjust as needed)
+                
+                // Apply the scroll
+                tabsContainer.scrollLeft = scrollLeft - walk;
+
+                // If the scroll distance is greater than 5 pixels, treat it as a drag, not a click
+                if (Math.abs(walk) > 5) {
+                    tabsContainer.dataset.moved = 'true';
+                }
+            });
+
+            // Note: On touch devices, the CSS 'overflow-x: scroll' handles the scrolling naturally,
+            // so we primarily focus the JS dragging logic on mouse interactions.
+        });
+
+
+
+
+        //tab all case study items
+
+
+        
+
+    function tabinitFeaturedWork() {
+        const featuredWork = document.querySelector(".all-portfolio-tab-section");
+        if (!featuredWork) {
+            console.log("⛔ .all-portfolio-tab-section not found. GSAP animation skipped.");
+            return; 
+        }
+
+        const itemRows = featuredWork.querySelectorAll(".all-portfolio-grid-item-row");
+
+        itemRows.forEach((row, index) => {
+            const item = row.querySelector(".grid-item");
+            const imageWrap = item.querySelector(".image-wrap");
+            const image = item.querySelector(".image");
+            const caption = item.querySelector(".caption");
+            
+            const isFullWidth = index === 0; 
+            const isEven = (index + 1) % 2 === 0; 
+            
+            let originX;
+            let captionSlideX;
+
+            if (isFullWidth) {
+                originX = 0; 
+                captionSlideX = 100; 
+            } else {
+                originX = isEven ? 100 : 0; 
+                captionSlideX = isEven ? -100 : 100;
+            }
+
+            gsap.set(caption, { 
+                xPercent: captionSlideX, 
+                opacity: 0,
+                yPercent: 100 
+            });
+
+            gsap.timeline({
+                defaults: {
+                    ease: "power4.out",
+                },
+                scrollTrigger: {
+                    id: `all-portfolio-tab-section-item-${index}`,
+                    trigger: row, 
+                    start: "top bottom-=10%",
+                    end: "bottom top", 
+                    scrub: 1, 
+                },
+            })
+            .fromTo(
+                imageWrap,
+                {
+                    scaleX: 0, 
+                    transformOrigin: `${originX}% 0%`,
+                },
+                {
+                    scaleX: 1,
+                }
+            )
+            .fromTo(
+                image,
+                {
+                    scale: 5,
+                    transformOrigin: `${originX}% 0%`,
+                },
+                {
+                    scale: 1,
+                },
+                0
+            )
+            .to(
+                caption,
+                {
+                    ease: "power2.out",
+                    xPercent: 0, 
+                    opacity: 1,
+                    yPercent: 0, 
+                },
+                0.2 
+            );
+        });
+
+        console.log(`✅ Featured work initialized for ${itemRows.length} items`);
+    }
 
 
 

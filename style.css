@@ -2472,8 +2472,7 @@ body canvas.draw {
 }
 
 .padding-large {
-  padding-left: 3rem;
-  padding-right: 3rem;
+  padding-bottom: 5rem;
 }
 
 /* ============================================
@@ -2543,7 +2542,7 @@ body canvas.draw {
 
 /* Image Styling */
 .image {
-  aspect-ratio: 5 / 4;
+  aspect-ratio: 5 / 3;
   width: 100%;
   object-fit: cover;
   display: block;
@@ -2557,7 +2556,6 @@ body canvas.draw {
   bottom: -0.5rem;
   left: 0.5rem;
   transform: translate(0, 100%);
-  color: var(--primary);
   font-size: 1rem;
   font-weight: 500;
   will-change: transform, opacity;
@@ -2843,7 +2841,6 @@ body canvas.draw {
 /* cta section start */
 
 .cta-section .section-title {
-  color: #000;
   text-align: center;
   font-size: 64px;
   font-weight: 500;
@@ -5055,7 +5052,7 @@ line-height: 30px; /* 150% */
   right: 0;
   top: 0;
   bottom: 0;
-  background-image: url(assets/images/service-background.webp);
+  background-image: url(assets/images/service-background.png);
   background-repeat: no-repeat;
   background-size: cover;
   z-index: -2;
@@ -5239,9 +5236,263 @@ position: relative;
   right: 0;
   top: 0;
   bottom: 0;
-  background-image: url(assets/images/service-background.webp);
+  background-image: url(assets/images/service-background.png);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
   z-index: -2;
 }
+
+
+/* all case study start */
+
+
+        .tabs-container {
+            overflow-x: scroll;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; 
+        }
+        .tabs-container::-webkit-scrollbar {
+            display: none; 
+        }
+
+        /* Style for the tabs */
+        .tab-button {
+            transition: all 0.2s ease-in-out;
+            white-space: nowrap; 
+            user-select: none;
+            color: #000;
+            font-size:  16px;
+            line-height: 24px; 
+            height: 48px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 10px 24px;
+            background-color: #fff;
+            border-radius: 47px;
+            border: 1px solid #D8D8D8;
+
+        }
+           @media (max-width:767px) {
+              .tab-button {
+          height: 38px;
+            padding: 5px 12px;
+            font-size:  14px;
+        }
+        }
+
+        .all-case-study{
+          overflow: hidden;
+        }
+
+        .case-tablist-wrap{
+          cursor: pointer;
+          display: flex;
+          flex-wrap: nowrap;
+          gap: 16px;
+          margin-top: 70px;
+        }
+            @media (max-width:767px) {
+                  .case-tablist-wrap{
+          gap: 8px;
+          margin-top: 40px;
+        }
+        }
+
+        .tab-button:hover{
+          background-color: #19914A; 
+           border: 1px solid #19914A;
+          color: #fff;
+        }
+        .tab-button.active {
+            background-color: #19914A; 
+            border: 1px solid #19914A;
+            color: #ffffff;
+            
+        }
+
+        .case-study-wrap-tab-content{
+          padding-top: 120px;
+        }
+        @media (max-width:991px) {
+              .case-study-wrap-tab-content{
+          padding-top: 60px;
+        }
+        }
+        @media (max-width:576px) {
+              .case-study-wrap-tab-content{
+          padding-top: 30px;
+        }
+        }
+
+        .tab-content-panel.active {
+            display: block;
+            animation: fadeIn 0.3s ease-in-out;
+        }
+
+        .tab-content-panel:not(.active) {
+            display: none;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+
+      .all-case-study{
+        max-width:1450px;
+        width: 100%;
+        margin: auto;
+      }
+/* case study-tab section end */
+
+
+  /* ============================================
+           Zig-Zag Layout Containers
+           ============================================ */
+        .all-portfolio-tab-section .grid-container {
+            display: flex;
+            flex-direction: column;
+        }
+        @media (max-width:991px) {
+            .all-portfolio-tab-section .grid-container {
+                gap: 54px;
+        }
+        }
+
+        .all-portfolio-tab-section .all-portfolio-grid-item-row {
+            width: 100%;
+            position: relative;
+            display: flex; 
+        }
+
+        .all-portfolio-tab-section .all-portfolio-grid-item-row:first-child {
+            justify-content: flex-start; 
+        }
+        
+        .all-portfolio-tab-section .all-portfolio-grid-item-row:nth-child(odd):nth-child(n+2) {
+            justify-content: flex-start;
+        }
+
+        .all-portfolio-tab-section .all-portfolio-grid-item-row:nth-child(even):nth-child(n+2) {
+            justify-content: flex-end;
+        }
+
+        .all-portfolio-tab-section .grid-item {
+            position: relative;
+            will-change: transform;
+            width: 50%; 
+            aspect-ratio: 5 / 3; 
+            display: block; 
+        }
+        
+        .all-portfolio-tab-section .all-portfolio-grid-item-row:first-child .grid-item {
+            width: 100%; 
+            margin-bottom: 52px;
+            aspect-ratio: 13 / 6;
+        }
+        @media (max-width:991px) {
+            .all-portfolio-tab-section .all-portfolio-grid-item-row:first-child .grid-item {
+            margin-bottom: 0px;
+            
+        }
+    }
+
+        /* ============================================
+           Image and Caption Styles 
+           ============================================ */
+        .all-portfolio-tab-section .image-wrap {
+            overflow: hidden;
+            will-change: transform;
+            transform-origin: 0% 0%; 
+            height: 100%;
+        }
+
+        .all-portfolio-tab-section .image-wrap-right {
+            transform-origin: 100% 0%; 
+        }
+
+        .all-portfolio-tab-section .all-portfolio-grid-item-row:first-child .image-wrap {
+            transform-origin: 0% 0%; 
+        }
+
+
+        .all-portfolio-tab-section .image {
+            height: 100%;
+            width: 100%;
+            object-fit: cover;
+            display: block;
+            will-change: transform;
+            transform-origin: 0% 0%;
+        }
+
+        .all-portfolio-tab-section .caption {
+            position: absolute;
+            bottom: -2.1rem;
+            left: 0.5rem;
+            color: var(--primary);
+            font-size: 1rem;
+            font-weight: 500;
+            will-change: transform, opacity;
+            white-space: nowrap;
+            z-index: 10;
+        }
+        @media (max-width:991px) {
+           .all-portfolio-tab-section .caption {
+          bottom: -0.5rem;
+           }
+        }
+        
+        .all-portfolio-tab-section .caption-right {
+            left: auto;
+            right: 0.5rem;
+        }
+
+        /* ============================================
+           Responsive - Tablet (991px)
+           ============================================ */
+        @media screen and (max-width: 991px) {
+            .all-portfolio-tab-section .grid-item {
+                width: 100%;
+            }
+            .all-portfolio-tab-section .all-portfolio-grid-item-row {
+                justify-content: flex-start !important; 
+            }
+        }
+        @media screen and (max-width: 767px) {
+             .all-portfolio-tab-section .grid-item {
+                width: 100%;
+            }
+        }
+
+
+
+
+
+
+        @media (max-width:991px) {
+.case-study-banner .sevice-banner-title h1{
+  font-size:  62px;
+  font-weight:500;
+  margin-bottom: 24px;
+}
+
+}
+@media (max-width:767px) {
+.case-study-banner .sevice-banner-title h1{
+  font-size:  52px;
+  font-weight:500;
+  margin-bottom: 24px;
+}
+
+}
+@media (max-width:576px) {
+.case-study-banner .sevice-banner-title h1{
+  font-size:  38px;
+  font-weight:500;
+  margin-bottom: 24px;
+}
+}
+
 /* case study-section end */
