@@ -857,6 +857,7 @@ body canvas.draw {
   .banner .scroll-down {
     right: 16px;
     bottom: 16px;
+    transform: scale(.7);
   }
 }
 
@@ -5054,7 +5055,8 @@ line-height: 30px; /* 150% */
   bottom: 0;
   background-image: url(assets/images/service-background.png);
   background-repeat: no-repeat;
-  background-size: cover;
+  background-size: contain;
+  background-position: top right;
   z-index: -2;
 }
  .sevice-banner-title h1{
@@ -5070,6 +5072,22 @@ line-height: 30px; /* 150% */
   margin-left: auto;
 font-size:20px;
 line-height:  30px; /* 150% */
+padding-top: 70px;
+}
+@media (max-width:991px) {
+  .service-banner-pra{
+padding-top: 40px;
+}
+}
+@media (max-width:767px) {
+  .service-banner-pra{
+padding-top: 20px;
+}
+}
+@media (max-width:576px) {
+  .service-banner-pra{
+padding-top: 0px;
+}
 }
 .sticky-service-item-content-title{
 font-size: 52px;
@@ -5225,7 +5243,7 @@ position: relative;
 .case-study-banner{
   min-height: 607px;
   padding-top: 156px;
-  padding-bottom: 64px;
+  padding-bottom: 120px;
   position: relative;
 
 }
@@ -5239,6 +5257,7 @@ position: relative;
   background-image: url(assets/images/service-background.png);
   background-repeat: no-repeat;
   background-size: contain;
+  background-position: top right;
   z-index: -2;
 }
 
@@ -5478,6 +5497,10 @@ position: relative;
   margin-bottom: 24px;
 }
 
+    .case-study-banner {
+      padding-bottom: 80px;
+    }
+
 }
 @media (max-width:767px) {
 .case-study-banner .sevice-banner-title h1{
@@ -5496,3 +5519,351 @@ position: relative;
 }
 
 /* case study-section end */
+
+
+
+
+
+
+
+/* service single section  start */
+
+/*service step */
+.process-header {
+            text-align: center;
+            margin-bottom: 80px;
+        }
+
+        .process-header h2 {
+            text-align: center;
+            font-size:72px;
+            font-weight: 500;
+            line-height: 110%; /* 79.2px */
+        }
+
+        /* Step Indicator Container - Sticky */
+        .process-section .step-indicator-container {
+            position: sticky;
+            top: 0;
+            background: #0a0e1a;
+            z-index: 10;
+            padding: 28px 0;
+        }
+
+        .process-section .step-indicator {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 0;
+        }
+
+        .process-section .step {
+            display: flex;
+            align-items: center;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .process-section .step-number {
+            width: 57px;
+            height: 57px;
+            border-radius: 50%;
+            border: 2px solid #6A7282;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 28px;
+            line-height: 32px;
+            background: transparent;
+            color: #6A7282;
+            transition: all 0.4s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .process-section .step:hover .step-number {
+            transform: scale(1.1);
+            border-color: #99FE00;;
+        }
+
+        .process-section .step.active .step-number {
+            background: #99FE00;;
+            border-color: #99FE00;;
+            color: #0a0e1a;
+        }
+
+        .process-section .step-line {
+            width: 80px;
+            height: 1px;
+            border-top: 1px dotted #6A7282;
+            position: relative;
+            transition: border-color 0.4s ease;
+        }
+
+        .process-section .step.active .step-line {
+            border-color: #99FE00;
+        }
+
+        /* Sticky Items Container */
+        .process-section .sticky-items-wrapper {
+            position: relative;
+        }
+
+        .process-section .sticky-service-item {
+            height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: relative;
+        }
+
+        /* Content Container - Static positioning */
+        .process-section .sticky-content-stack {
+            width: 100%;
+            max-width: 100%;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 32px;
+            padding: 20px 0;
+        }
+
+        .process-section .sticky-service-item-content {
+            width: 100%;
+            background: white;
+            border-radius: 32px;
+            overflow: hidden;
+            opacity: 1;
+            visibility: visible;
+        }
+
+        .process-section .service-card {
+            display: flex;
+            flex-direction: row;
+            min-height: 400px;
+            padding: 24px;
+        }
+
+        .process-section .service-text {
+            flex: 1;
+            padding: 24px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+        }
+
+        .process-section .service-badge {
+            display: inline-block;
+            padding: 10px 24px;
+            background: rgba(0, 0, 0, 0.10);
+            border-radius: 34px;
+            color: #000;
+            font-size:  28px;
+            line-height: 120%; /* 33.6px */
+            margin-bottom: 30px;
+            width: fit-content;
+        }
+
+        .process-section .service-text h3 {
+            font-size:52px;
+            font-weight:  500;
+            line-height: 120%; /* 62.4px */
+            margin-bottom: 18px;
+            color: #000;
+        }
+
+        .process-section .service-text p {
+            color: #364153;
+            font-size:  20px;
+            font-weight: 400;
+            line-height:30px; /* 150% */
+        }
+
+        .process-section .service-image {
+            flex: 1;
+            position: relative;
+        }
+        .process-section .service-image img{
+            border-radius: 24px;
+        }
+
+        .process-section .service-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width:991px) {
+               .service-text h2 {
+            font-size:42px;
+        }
+
+        .process-section .service-text p {
+            font-size:  18px;
+        }
+        .process-section .process-header h2{
+            font-size: 52px;
+        }
+        .process-section .process-header{
+            margin-bottom: 24px;
+        }
+        }
+
+        @media (max-width:767px) {
+              .process-section  .service-text h3 {
+            font-size:28px;
+        }
+           .process-section  .process-header h1{
+            font-size: 38px;
+        }
+
+        .process-section .service-text p {
+            font-size:  18px;
+            line-height: 24px;
+        }
+         .process-section .service-text h3{
+            margin-bottom: 16px;
+        }
+        
+        }
+        @media (max-width:576px) {
+              .process-section  .service-text h3 {
+            font-size:24px;
+        }
+              .process-section .process-header h2{
+            font-size: 28px;
+        }
+
+        .process-section .service-text p {
+            font-size:  16px;
+            line-height: 22px;
+        }
+        .process-section .service-text h3{
+            margin-bottom: 8px;
+        }
+        .process-section .service-card{
+            padding: 20px;
+        }
+        .process-section .sticky-service-item-content{
+            border-radius: 24px;
+        }
+        .process-section .service-image img{
+            border-radius: 16px;
+        }
+        }
+
+     
+        @media (max-width: 768px) {
+            .process-section .process-header h2 {
+                font-size: 32px;
+            }
+
+            .process-section .step-indicator-container {
+                padding: 24px 0;
+            }
+
+            .process-section .step-number {
+                width: 40px;
+                height: 40px;
+                font-size: 16px;
+            }
+
+            .process-section .step-line {
+                width: 40px;
+            }
+
+            .process-section .sticky-content-stack {
+                padding: 0px 0;
+                gap: 15px;
+            }
+
+            .process-section .service-card {
+                flex-direction: column;
+                min-height: auto;
+            }
+
+            .process-section .service-text {
+                padding: 0;
+                padding-bottom: 24px;
+            }
+
+            .process-section .service-badge {
+                font-size: 14px;
+                padding: 7px 18px;
+                margin-bottom: 20px;
+                font-weight: 500;
+            }
+
+        }
+/*service step */
+
+
+/* marque service images  */
+   .scrolling-images {
+            overflow: hidden;
+            width: 100%;
+            height: auto;
+            display: flex;
+            align-items: center;
+            position: relative;
+            cursor: grab;
+            padding-top: 64px;
+        }
+
+        .scrolling-images:active {
+            cursor: grabbing;
+        }
+
+        .rail {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            position: relative;
+        }
+
+        .rail img {
+            height: 400px;
+            width: auto;
+            object-fit: cover;
+            border-radius: 16px;
+            flex-shrink: 0;
+            display: block;
+            user-select: none;
+            pointer-events: none;
+        }
+
+        @media (max-width: 768px) {
+            .rail img {
+                height: 250px;
+            }
+
+            .rail img:nth-child(6n+1) {
+                height: 280px;
+            }
+
+            .rail img:nth-child(6n+2) {
+                height: 220px;
+            }
+
+            .rail img:nth-child(6n+3) {
+                height: 250px;
+            }
+
+            .rail img:nth-child(6n+4) {
+                height: 260px;
+            }
+
+            .rail img:nth-child(6n+5) {
+                height: 240px;
+            }
+
+            .rail img:nth-child(6n+6) {
+                height: 270px;
+            }
+
+            .rail {
+                gap: 20px;
+            }
+        }
+/* marquee service image */
+/* service single section end */

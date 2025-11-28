@@ -2439,6 +2439,227 @@ const brandIcon1 = document.getElementById('brandIcon1');
 
 
 
+    //step for service single page 
+
+      const contents = gsap.utils.toArray('.sticky-service-item-content');
+        const steps = gsap.utils.toArray('.step');
+        const stepLines = gsap.utils.toArray('.step-line');
+
+        // Function to update active step based on scroll
+        function updateActiveStep(index) {
+            // Update steps
+            steps.forEach((step, i) => {
+                if (i <= index) {
+                    step.classList.add('active');
+                } else {
+                    step.classList.remove('active');
+                }
+            });
+            
+            // Update step lines
+            stepLines.forEach((line, i) => {
+                if (i < index) {
+                    line.style.borderColor = '#99FE00';
+                } else {
+                    line.style.borderColor = '#6A7282';
+                }
+            });
+        }
+
+        // ScrollTrigger for each content item
+        contents.forEach((content, index) => {
+            ScrollTrigger.create({
+                trigger: content,
+                start: 'top center',
+                end: 'bottom center',
+                onEnter: () => updateActiveStep(index),
+                onEnterBack: () => updateActiveStep(index),
+                markers: false
+            });
+        });
+
+        // Click handler for steps
+        steps.forEach((step, index) => {
+            step.addEventListener('click', () => {
+                updateActiveStep(index);
+                
+                const targetContent = contents[index];
+                gsap.to(window, {
+                    duration: 0.8,
+                    scrollTo: {
+                        y: targetContent,
+                        offsetY: -200
+                    },
+                    ease: 'power2.inOut'
+                });
+            });
+        });
+
+        // Initial state
+        updateActiveStep(0);
+
+
+
+
+
+
+
+
+        //step indicator opacity 0 when bottom part come 60% form window height 
+
+        gsap.to(".step-indicator-container", {
+    opacity: 0,
+    duration: 0.5,
+    ease: "power2.out",
+
+    scrollTrigger: {
+        trigger: ".process-section",
+        start: "bottom 60%",   // section bottom hits 60% from bottom
+        toggleActions: "play none none reverse"
+    }
+});
+
+
+//marquee in images in single service pages
+
+gsap.registerPlugin(Draggable);
+    function setupMarquee() {
+            const rail = document.querySelector('.rail');
+            const container = document.querySelector('.scrolling-images');
+            const images = Array.from(rail.querySelectorAll('img'));
+            
+            // Clone images multiple times for seamless loop
+            for (let i = 0; i < 3; i++) {
+                images.forEach(img => {
+                    const clone = img.cloneNode(true);
+                    rail.appendChild(clone);
+                });
+            }
+
+            const allImages = Array.from(rail.querySelectorAll('img'));
+            
+            // Calculate total width of one set
+            let singleSetWidth = 0;
+            images.forEach(img => {
+                singleSetWidth += img.offsetWidth + 40;
+            });
+
+            // Set up the infinite loop animation
+            gsap.set(rail, { x: 0 });
+
+            const duration = singleSetWidth / 50; // Base speed
+
+            const tl = gsap.timeline({
+                repeat: -1,
+                defaults: { ease: "none" }
+            });
+
+            tl.to(rail, {
+                x: -singleSetWidth,
+                duration: duration,
+                ease: "none",
+                modifiers: {
+                    x: function(x) {
+                        return (parseFloat(x) % singleSetWidth) + "px";
+                    }
+                }
+            });
+
+            // Hover to pause
+            let isHovered = false;
+
+            container.addEventListener('mouseenter', () => {
+                isHovered = true;
+                gsap.to(tl, { timeScale: 0, duration: 0.5, ease: "power2.out" });
+            });
+
+            container.addEventListener('mouseleave', () => {
+                isHovered = false;
+                gsap.to(tl, { timeScale: 1, duration: 0.5, ease: "power2.in" });
+            });
+
+            // Make it draggable
+            let draggableInstance = Draggable.create(rail, {
+                type: "x",
+                trigger: container,
+                inertia: true,
+                dragResistance: 0.3,
+                onPress: function() {
+                    tl.pause();
+                },
+                onRelease: function() {
+                    if (!isHovered) {
+                        tl.play();
+                    }
+                },
+                onDrag: function() {
+                    // Loop the position
+                    const currentX = gsap.getProperty(rail, "x");
+                    if (currentX > 0) {
+                        gsap.set(rail, { x: currentX - singleSetWidth });
+                    } else if (currentX < -singleSetWidth * 2) {
+                        gsap.set(rail, { x: currentX + singleSetWidth });
+                    }
+                },
+                onThrowUpdate: function() {
+                    // Loop during inertia
+                    const currentX = gsap.getProperty(rail, "x");
+                    if (currentX > 0) {
+                        gsap.set(rail, { x: currentX - singleSetWidth });
+                    } else if (currentX < -singleSetWidth * 2) {
+                        gsap.set(rail, { x: currentX + singleSetWidth });
+                    }
+                },
+                onThrowComplete: function() {
+                    if (!isHovered) {
+                        tl.play();
+                    }
+                }
+            })[0];
+
+            // Scroll interaction
+            let speedTween;
+
+            ScrollTrigger.create({
+                trigger: container,
+                start: "top bottom",
+                end: "bottom top",
+                onUpdate: (self) => {
+                    if (speedTween) speedTween.kill();
+                    
+                    const direction = self.direction;
+                    
+                    if (!draggableInstance.isDragging) {
+                        speedTween = gsap.timeline()
+                            .to(tl, {
+                                timeScale: 3 * direction,
+                                duration: 0.3,
+                                ease: "power2.out"
+                            })
+                            .to(tl, {
+                                timeScale: 1 * direction,
+                                duration: 1,
+                                ease: "power2.inOut"
+                            }, "+=0.3");
+                    }
+                }
+            });
+
+            // Start animation
+            tl.play();
+        }
+
+        // Wait for images to load
+        window.addEventListener('load', () => {
+            setupMarquee();
+        });
+
+        // Fallback
+        if (document.readyState === 'complete') {
+            setupMarquee();
+        }
+
+        
 
 
 
