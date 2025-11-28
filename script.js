@@ -49,6 +49,8 @@
         initPixelReveal();
         initConfidenceScrollAnimation();
         tabinitFeaturedWork(); 
+
+        setupGalleryScrollAnimation();
         
         console.log('✅ All animations initialized successfully');
     }
@@ -2658,6 +2660,140 @@ gsap.registerPlugin(Draggable);
         if (document.readyState === 'complete') {
             setupMarquee();
         }
+
+
+
+
+
+        // footer gallary animation
+
+        /**
+ * 🖼️ GSAP Gallery Scroll Animation Setup
+ * * This function initializes the GSAP ScrollTrigger animations for the gallery images.
+ * The entire animation setup will only run if an element with the class '.footer-area' is present
+ * on the page, preventing conflicts and unnecessary execution on other pages.
+ */
+function setupGalleryScrollAnimation() {
+    // 1. Conditional Check: Only run the code if the footer area exists.
+    if (!document.querySelector('.footer-area')) {
+        console.log("Gallery animation skipped: '.footer-area' element not found.");
+        return;
+    }
+
+    // 2. Initialize GSAP plugins and utilities
+    gsap.registerPlugin(ScrollTrigger);
+    const mm = gsap.matchMedia();
+    const initialImageWrapper = document.querySelector(".gallery-img-wrap");
+    
+    // Check if the trigger area exists
+    if (!document.querySelector(".gallery-area")) {
+        console.warn("Gallery animation requires '.gallery-area' trigger.");
+        return;
+    }
+
+
+    const galleryAnimations = [
+        { img: ".gallery_img_1", initialX_pixel: 524, y: 1820, scale: 0.38, zIndex: 3 },
+        { img: ".gallery_img_2", initialX_pixel: -94, y: 1631, scale: 0.55, zIndex: 2 },
+        { img: ".gallery_img_16", initialX_pixel: -855, y: 725, scale: 0.35, zIndex: 1 },
+        { img: ".gallery_img_12", initialX_pixel: -950, y: 1292, scale: 0.3, zIndex: 2 },
+        { img: ".gallery_img_4", initialX_pixel: 320, y: 1445, scale: 0.7, zIndex: 1 },
+        { img: ".gallery_img_7", initialX_pixel: 890, y: 1105, scale: 0.45, zIndex: 1 },
+        { img: ".gallery_img_17", initialX_pixel: -540, y: 1471, scale: 0.55, zIndex: 2 },
+        { img: ".gallery_img_3", initialX_pixel: 570, y: 1650, scale: 0.32, zIndex: 2 },
+        { img: ".gallery_img_5", initialX_pixel: 86, y: 1620, scale: 0.36, zIndex: 5 },
+        // Assuming this was meant to be another image (e.g., .gallery_img_10)
+        { img: ".gallery_img_10", initialX_pixel: -266, y: 1350, scale: 0.62, zIndex: 1 },
+        { img: ".gallery_img_6", initialX_pixel: -366, y: 1540, scale: 0.45, zIndex: 1 },
+        { img: ".gallery_img_8", initialX_pixel: 326, y: 1094, scale: 0.32, zIndex: 1 },
+        { img: ".gallery_img_9", initialX_pixel: 86, y: 1090, scale: 0.45, zIndex: 1 },
+        { img: ".gallery_img_11", initialX_pixel: -456, y: 1140, scale: 0.35, zIndex: 1 },
+        { img: ".gallery_img_13", initialX_pixel: 576, y: 918, scale: 0.3, zIndex: 1 },
+        { img: ".gallery_img_14", initialX_pixel: 246, y: 768, scale: 0.5, zIndex: 1 },
+        { img: ".gallery_img_15", initialX_pixel: -206, y: 933, scale: 0.4, zIndex: 1 },
+    ];
+
+    // 3. Main Animation Loop (Default/Large Screen)
+    galleryAnimations.forEach((item) => {
+        // Ensure the element exists before trying to animate it
+        if (!document.querySelector(item.img)) return;
+
+        // Calculate responsive X-translation from fixed pixels (1920px baseline)
+        const xSpreadPercentage = (item.initialX_pixel / 1920) * 100;
+        
+        // Calculate responsive Y-translation from fixed pixels (1700px baseline, using 181vh for scaling)
+        // Note: The original Y calculation is unusual, scaling based on a fixed ratio.
+        const ySpreadVh = (item.y / 1700) * 181; 
+        
+        gsap.to(item.img, {
+            x: `${xSpreadPercentage}vw`,
+            y: `${ySpreadVh}vh`,
+            scale: item.scale,
+            zIndex: item.zIndex,
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".gallery-area",
+                start: "top 2%",
+                end: "bottom 30%",
+                scrub: 2,
+                // markers: false, // Keep markers off for production
+            },
+        });
+    });
+
+    // 4. Media Query Animations
+    
+    // Animation for screens <= 1400px
+    mm.add("(max-width: 1400px)", () => {
+        // The media query is where you put your overrides for smaller screens.
+        // The original logic for these two images is applied here.
+        
+        // Image 3 (Right side)
+        gsap.to(".gallery_img_3", {
+            x: "25vw",
+            y: "1650px", // Still using pixel value for Y here
+            scale: 0.32,
+            zIndex: 2, 
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".gallery-area",
+                start: "top 2%",
+                end: "bottom 30%",
+                scrub: 2,
+            },
+        });
+        
+        // Image 17 (Left side)
+        gsap.to(".gallery_img_17", {
+            x: "-25vw",
+            y: "1480px", // Still using pixel value for Y here
+            scale: 0.55,
+            zIndex: 2, 
+            ease: "none",
+            scrollTrigger: {
+                trigger: ".gallery-area",
+                start: "top 2%",
+                end: "bottom 30%",
+                scrub: 2,
+            },
+        });
+    });
+
+    // Animation for screens <= 1200px
+    mm.add("(max-width: 1200px)", () => {
+        // More overrides for even smaller screens.
+        
+        gsap.to(".gallery_img_2", { x: "-10vw", y: "1641px", scale: 0.55, zIndex: 2, ease: "none", scrollTrigger: { trigger: ".gallery-area", start: "top 2%", end: "bottom 30%", scrub: 2 } });
+        gsap.to(".gallery_img_3", { x: "20vw", y: "1650px", scale: 0.32, zIndex: 2, ease: "none", scrollTrigger: { trigger: ".gallery-area", start: "top 2%", end: "bottom 30%", scrub: 2 } });
+        gsap.to(".gallery_img_4", { x: "15vw", y: "1445px", scale: 0.7, zIndex: 2, ease: "none", scrollTrigger: { trigger: ".gallery-area", start: "top 2%", end: "bottom 30%", scrub: 2 } });
+        gsap.to(".gallery_img_10", { x: "11vw", y: "1300px", scale: 0.62, zIndex: 2, ease: "none", scrollTrigger: { trigger: ".gallery-area", start: "top 2%", end: "bottom 30%", scrub: 2 } });
+        gsap.to(".gallery_img_17", { x: "-22vw", y: "1480px", scale: 0.55, zIndex: 2, ease: "none", scrollTrigger: { trigger: ".gallery-area", start: "top 2%", end: "bottom 30%", scrub: 2 } });
+    });
+}
+
+// 5. Call the function to start the setup
+// Ensure this call is placed at the end of your script or inside a DOMContentLoaded event listener.
+
 
         
 
