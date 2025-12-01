@@ -6417,6 +6417,12 @@ textarea::placeholder {
 .sm_video_button .btn.btn-anim-slide.btn-large .btn-text-container {
     height: calc(100% - 86px);
 }
+.sm_video_button .btn.btn-anim-slide .btn-clip{
+  border-radius: 12px;
+}
+.sm_video_button .btn.btn-anim-slide .btn-background{
+  border-radius: 12px;
+}
 .sm_video_button .btn.btn-large .btn-text-container .btn-text {
     font-size: 68px;
     font-weight: 500;
@@ -6740,7 +6746,30 @@ ul.footer__menu_list li a:hover {
         gap: 30px;
         align-items: center;
     }
+    .footer__download_btn_wrap {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        width: 100%;
+    }
+    .review__star_rating {
+        display: flex;
+        flex-direction: column;
+    }
+    .footer__download_btn_wrap p {
+        font-size: 20px;
+    }
 }
+ 
+@media (max-width: 400px) {
+    .footer__download_btn_wrap {
+        display: flex;
+        flex-direction: column;
+        gap: 24px;
+        justify-content: center;
+    }
+}
+ 
 
 .logo-shape-area svg {
     position: relative;
@@ -6761,4 +6790,42 @@ ul.footer__menu_list li a:hover {
 /* Footer area style -end */
 
 /* ashik vi contact and footer end */
+
+
+/* service xs button start */
+.contact-container{
+  display: inline-block;
+}
+.xs_video_button .btn.btn-large {
+    height: 120px;
+    max-width: 350px;
+    border-radius: 12px;
+}
+.xs_video_button .btn.btn-anim-slide.btn-large .btn-text-container {
+    height: calc(100% - 50px);
+}
+.xs_video_button .btn.btn-anim-slide .btn-clip{
+  border-radius: 12px;
+}
+.xs_video_button .btn.btn-anim-slide .btn-background{
+  border-radius: 12px;
+}
+.xs_video_button .btn.btn-large .btn-text-container .btn-text {
+    font-size: 56px;
+    font-weight: 500;
+    line-height: 120%; /* 81.803px */
+}
+
+@media (max-width: 1400px) {
+    .xs_video_button .btn.btn-large .btn-text-container .btn-text {
+        font-size: 22px;
+    }
+    .xs_video_button .btn.btn-large {
+        height: 60px;
+    }
+    .xs_video_button .btn.btn-anim-slide.btn-large .btn-text-container {
+        height: calc(100% - 35px);
+    }
+}
+/* service xs button end */
 
