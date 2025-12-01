@@ -3301,6 +3301,7 @@ body canvas.draw {
   display: flex;
   flex-direction: column;
   justify-content: center;
+  overflow: hidden;
 
 }
 
@@ -3345,7 +3346,7 @@ body canvas.draw {
   }
 
   .menu__item {
-    margin-bottom: 50px;
+    margin-bottom: 20px;
   }
 }
 
@@ -3359,11 +3360,10 @@ body canvas.draw {
 @media (max-width:576px) {
   .menu__item-text {
     font-size: 38px;
-    line-height: 48px;
+    line-height: 130%;
   }
-
   .menu__item {
-    margin-bottom: 40px;
+    margin-bottom: 20px;
   }
 }
 
@@ -6829,3 +6829,27 @@ ul.footer__menu_list li a:hover {
 }
 /* service xs button end */
 
+
+
+
+
+/* text animation */
+
+  .word {
+    display: inline-block;
+    position: relative;
+    overflow: visible; 
+  }
+  .word-cover {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+
+    width: 150%; 
+    height: 100%;
+    background-color: #99FE00; /* লাল রঙ */
+    transform-origin: left center;
+    z-index: 10;
+  }
+/* text animation */

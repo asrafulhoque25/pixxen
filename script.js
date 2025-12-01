@@ -89,6 +89,43 @@
         console.log('✅ Scroll color change initialized');
     }
     
+
+
+// text animation
+
+
+    document.querySelectorAll(".my-animated-text").forEach((element) => {
+    
+    const text = new SplitType(element, {
+      types: "words"
+    });
+
+    text.words.forEach(wordElement => {
+      wordElement.style.marginRight = "0rem";
+      
+      const cover = document.createElement('span');
+      cover.classList.add('word-cover');
+      wordElement.appendChild(cover);
+    });
+    
+    const wordCovers = element.querySelectorAll('.word-cover');
+
+    const scrollConfig = {
+      trigger: element,
+      start: "top 85%",
+      end: "top 65%",
+      scrub: 1,
+    };
+
+    gsap.to(
+      wordCovers, {
+        scaleX: 0, 
+        stagger: 0.1, 
+        ease: "none",
+        scrollTrigger: scrollConfig,
+      }
+    );
+  });
     // ========================================
     // 2. BUTTON ANIMATIONS
     // ========================================
@@ -1432,6 +1469,9 @@
     function initStickyNavbar() {
         const desktopNav = document.querySelector(".sticky-navbar-bottom");
         const mobileNav = document.querySelector(".sticky-navbar-bottom-mobile");
+
+
+        
         
         if (desktopNav) {
             gsap.to(".sticky-navbar-bottom", {
@@ -2663,6 +2703,9 @@ gsap.registerPlugin(Draggable);
 
 
 
+        
+
+
 
 
         // footer gallary animation
@@ -2793,6 +2836,14 @@ function setupGalleryScrollAnimation() {
 
 // 5. Call the function to start the setup
 // Ensure this call is placed at the end of your script or inside a DOMContentLoaded event listener.
+
+
+
+//text animation
+
+
+
+
 
 
         
